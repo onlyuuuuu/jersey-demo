@@ -7,6 +7,46 @@
     <groupId>com.onlyu</groupId>
     <artifactId>jersey-demo</artifactId>
     <version>1.0</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <jsr311-api.version>1.1.1</jsr311-api.version>
+        <jersey.version>1.17</jersey.version>
+        <jackson-jaxrs-json-provider.version>2.9.5</jackson-jaxrs-json-provider.version>
+    </properties>
+    <packaging>war</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>${jsr311-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson-jaxrs-json-provider.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${artifactId}</finalName>
+    </build>
 
 </project>
