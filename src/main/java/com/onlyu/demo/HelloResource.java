@@ -17,6 +17,11 @@ public class HelloResource {
      * List<T>, Set<T>, or SortedSet<T> where T satisfies 2 or 3 above.
      */
 
+    /***
+     * problem with string list still persist (response for both json & xml not as expected)
+     * null values not appearing or only for string list ?
+     */
+
     @GET
     @Path("/greet")
     @Produces(MediaType.TEXT_PLAIN)
