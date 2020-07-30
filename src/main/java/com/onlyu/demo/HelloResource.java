@@ -1,14 +1,21 @@
 package com.onlyu.demo;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Arrays;
+import java.util.List;
 
 @Path("/hello")
 public class HelloResource {
+
+    /*
+     * The following types are supported:
+     * Primitive Types
+     * Types that have a constructor that accepts a single String argument.
+     * Types that have a static method named valueOf with a single String argument.
+     * List<T>, Set<T>, or SortedSet<T> where T satisfies 2 or 3 above.
+     */
 
     @GET
     @Path("/greet")
@@ -46,5 +53,89 @@ public class HelloResource {
         greet.setMessage("Hello " + name + "!");
         return Response.ok(greet).build();
     }
+
+    @GET
+    @Path("/query/simple")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response greetAsQuerySimple(@QueryParam("par1") String param1,
+                                       @QueryParam("par2") String param2) {
+        Greet greet = new Greet();
+        greet.setTo(param1);
+        greet.setMessage(param2);
+        return Response.ok(greet).build();
+    }
+
+    @GET
+    @Path("/query/simple2")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response greetAsQuerySimple2(@QueryParam("par1") String param1,
+                                        @QueryParam("par2") String param2,
+                                        @QueryParam("par3") List<String> param3) {
+        Greet greet = new Greet();
+        greet.setTo(param1);
+        greet.setMessage(param2);
+        greet.setDetails(Arrays.asList("aaa"));
+        //greet.setDetails(Arrays.asList("aaa", "bbb", "ccc")); // only works for multiple values
+        //greet.setDetails(param3);
+        return Response.ok(greet).build();
+    }
+
+    @GET
+    @Path("/query/simple3")
+    @Produces(MediaType.APPLICATION_XML)
+    public Response greetAsQuerySimple3(@QueryParam("par1") String param1,
+                                        @QueryParam("par2") String param2,
+                                        @QueryParam("par3") List<String> param3) {
+        Greet greet = new Greet();
+        greet.setTo(param1);
+        greet.setMessage(param2);
+        //greet.setDetails(Arrays.asList("aaa")); // same with json
+        greet.setDetails(Arrays.asList("aaa", "bbb", "ccc")); // only works for multiple values
+        //greet.setDetails(param3);
+        return Response.ok(greet).build();
+    }
+
+    @GET
+    @Path("/query/cookie")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response greetAsQueryCookie(@CookieParam("par1") String param1,
+                                       @CookieParam("par2") String param2) {
+        Greet greet = new Greet();
+        greet.setTo(param1);
+        greet.setMessage(param2);
+        return Response.ok(greet).build();
+    }
+
+    @GET
+    @Path("/query/header")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response greetAsQueryHeader(@HeaderParam("par1") String param1,
+                                       @HeaderParam("par2") String param2) {
+        Greet greet = new Greet();
+        greet.setTo(param1);
+        greet.setMessage(param2);
+        return Response.ok(greet).build();
+    }
+
+    @POST
+    @Path("/query/form")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response greetAsQueryForm(@FormParam("par1") String param1,
+                                     @FormParam("par2") String param2) {
+        Greet greet = new Greet();
+        greet.setTo(param1);
+        greet.setMessage(param2);
+        return Response.ok(greet).build();
+    }
+
+//    @GET
+//    @Path("/query/object")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response greetAsQueryObject(@QueryParam("random") RandomParam randomParam) {
+//        Greet greet = new Greet();
+//        greet.setTo(randomParam.getPar1());
+//        greet.setMessage(randomParam.getPar2());
+//        return Response.ok(greet).build();
+//    }
 
 }
