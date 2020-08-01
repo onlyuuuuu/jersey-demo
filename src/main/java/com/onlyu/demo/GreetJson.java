@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Greet {
+public class GreetJson {
 
     private String to = "";
     private String toNull = null;
@@ -25,14 +21,13 @@ public class Greet {
     private String message = "";
     private String messageNull = null;
     private List<String> details = new ArrayList<>();
-    private GreetDetails greetDetails;
 
-    public Greet(String to, String message) {
+    public GreetJson(String to, String message) {
         this.to = to;
         this.message = message;
     }
 
-    public Greet(List<String> details) {
+    public GreetJson(List<String> details) {
         this.details = details;
     }
 

@@ -17,23 +17,8 @@ import java.util.List;
 @Setter
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Greet {
+public class GreetDetails {
 
-    private String to = "";
-    private String toNull = null;
-    private NameType type = NameType.FIRST_NAME;
-    private String message = "";
-    private String messageNull = null;
     private List<String> details = new ArrayList<>();
-    private GreetDetails greetDetails;
-
-    public Greet(String to, String message) {
-        this.to = to;
-        this.message = message;
-    }
-
-    public Greet(List<String> details) {
-        this.details = details;
-    }
 
 }

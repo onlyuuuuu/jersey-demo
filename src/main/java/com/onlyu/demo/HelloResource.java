@@ -1,6 +1,7 @@
 package com.onlyu.demo;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Arrays;
@@ -18,8 +19,17 @@ public class HelloResource {
      */
 
     /***
-     * problem with string list still persist (response for both json & xml not as expected)
+     * problem with string list still persist (response for both json & xml not as expected) - THE PROBLEM WAS @XmlRootElement !!!
+     * https://stackoverflow.com/questions/5392413/jersey-return-a-list-of-strings
+     *
      * null values not appearing or only for string list ?
+     *
+     *
+     * THE PROBLEM WAS @XmlRootElement !!!
+     * THE PROBLEM WAS @XmlRootElement !!!
+     * THE PROBLEM WAS @XmlRootElement !!!
+     *
+     *
      */
 
     @GET
@@ -76,10 +86,28 @@ public class HelloResource {
     public Response greetAsQuerySimple2(@QueryParam("par1") String param1,
                                         @QueryParam("par2") String param2,
                                         @QueryParam("par3") List<String> param3) {
+        GreetJson greet = new GreetJson();
+        greet.setTo(param1);
+        greet.setMessage(param2);
+        greet.setDetails(Arrays.asList("aaa"));
+        //greet.setDetails(Arrays.asList("aaa", "bbb", "ccc")); // only works for multiple values
+        //greet.setDetails(param3);
+        return Response.ok(greet).build();
+    }
+
+    @GET
+    @Path("/query/simple2.5")
+    @Produces(MediaType.APPLICATION_XML)
+    public Response greetAsQuerySimple2dot5(@QueryParam("par1") String param1,
+                                            @QueryParam("par2") String param2,
+                                            @QueryParam("par3") List<String> param3) {
         Greet greet = new Greet();
         greet.setTo(param1);
         greet.setMessage(param2);
         greet.setDetails(Arrays.asList("aaa"));
+        GreetDetails greetDetails = new GreetDetails();
+        greetDetails.setDetails(Arrays.asList("aaa"));
+        greet.setGreetDetails(greetDetails);
         //greet.setDetails(Arrays.asList("aaa", "bbb", "ccc")); // only works for multiple values
         //greet.setDetails(param3);
         return Response.ok(greet).build();
@@ -98,6 +126,24 @@ public class HelloResource {
         greet.setDetails(Arrays.asList("aaa", "bbb", "ccc")); // only works for multiple values
         //greet.setDetails(param3);
         return Response.ok(greet).build();
+    }
+
+    @GET
+    @Path("/list")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response simpleList() {
+        List<String> list = Arrays.asList("abc");
+        //GenericEntity<List<String>> entity = new GenericEntity<List<String>>(list) {};
+        return Response.ok(list).build();
+    }
+
+    @GET
+    @Path("/list2")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response simpleList2() {
+        List<String> list = Arrays.asList("abc");
+        GenericEntity<List<String>> entity = new GenericEntity<List<String>>(list) {};
+        return Response.ok(entity).build();
     }
 
     @GET
