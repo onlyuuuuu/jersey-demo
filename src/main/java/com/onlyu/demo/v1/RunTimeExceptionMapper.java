@@ -1,4 +1,4 @@
-package com.onlyu.demo;
+package com.onlyu.demo.v1;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

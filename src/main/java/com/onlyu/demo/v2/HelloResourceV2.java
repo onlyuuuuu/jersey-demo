@@ -1,4 +1,9 @@
-package com.onlyu.demo;
+package com.onlyu.demo.v2;
+
+import com.onlyu.demo.Greet;
+import com.onlyu.demo.GreetDetails;
+import com.onlyu.demo.GreetJson;
+import com.onlyu.demo.SimpleGreetJson;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -9,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Path("/hello")
-public class HelloResource {
+public class HelloResourceV2 {
 
     /*
      * The following types are supported:
@@ -200,7 +205,8 @@ public class HelloResource {
      * - Download file (single)
      * - Upload files (multiple)
      * - Request body with files
-     * - ...
+     * - Filter apply to specific resources (https://stackoverflow.com/questions/23641345/jersey-request-filter-only-on-certain-uri)
+     *
      */
 
     @POST

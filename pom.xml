@@ -11,47 +11,59 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <jsr311-api.version>1.1.1</jsr311-api.version>
-        <jersey.version>1.17</jersey.version>
+
+        <jaxrs.version>2.1.1</jaxrs.version>
+        <jersey2.version>2.31</jersey2.version>
+
         <jackson-jaxrs-json-provider.version>2.9.5</jackson-jaxrs-json-provider.version>
-        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <jaxb-api.version>2.3.1</jaxb-api.version>
+        <lombok.version>1.18.12</lombok.version>
     </properties>
     <packaging>war</packaging>
 
     <repositories>
         <repository>
-            <id>central</id>
-            <url>http://repo.maven.apache.org/maven2/</url>
+            <id>maven2-repository.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>default</layout>
         </repository>
     </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>javax.ws.rs</groupId>
-            <artifactId>jsr311-api</artifactId>
-            <version>${jsr311-api.version}</version>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>${jaxrs.version}</version>
+        </dependency>
+
+        <!-- Jersey 2.19 -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey2.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey</groupId>
+            <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-server</artifactId>
-            <version>${jersey.version}</version>
+            <version>${jersey2.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-servlet</artifactId>
-            <version>${jersey.version}</version>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey2.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-json</artifactId>
-            <version>${jersey.version}</version>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey2.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
             <artifactId>jackson-jaxrs-json-provider</artifactId>
@@ -60,12 +72,12 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
+            <version>${jaxb-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
