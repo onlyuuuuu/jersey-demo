@@ -1,4 +1,4 @@
-# Jersey Framework Research
+# Jersey Framework Research (Jersey 1)
 
 **The following types are supported:**
 
