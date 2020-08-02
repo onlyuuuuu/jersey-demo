@@ -3,6 +3,7 @@ package com.onlyu.demo;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.List;
@@ -123,8 +124,8 @@ public class HelloResource {
         greet.setTo(param1);
         greet.setMessage(param2);
         //greet.setDetails(Arrays.asList("aaa")); // same with json
-        greet.setDetails(Arrays.asList("aaa", "bbb", "ccc")); // only works for multiple values
-        //greet.setDetails(param3);
+        //greet.setDetails(Arrays.asList("aaa", "bbb", "ccc")); // only works for multiple values
+        greet.setDetails(param3);
         return Response.ok(greet).build();
     }
 
@@ -170,6 +171,7 @@ public class HelloResource {
 
     @POST
     @Path("/query/form")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response greetAsQueryForm(@FormParam("par1") String param1,
                                      @FormParam("par2") String param2) {
@@ -179,14 +181,50 @@ public class HelloResource {
         return Response.ok(greet).build();
     }
 
-//    @GET
-//    @Path("/query/object")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response greetAsQueryObject(@QueryParam("random") RandomParam randomParam) {
-//        Greet greet = new Greet();
-//        greet.setTo(randomParam.getPar1());
-//        greet.setMessage(randomParam.getPar2());
-//        return Response.ok(greet).build();
-//    }
+    @POST
+    @Path("/query/form2")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response greetAsQueryForm2(MultivaluedMap<String, String> formParams) {
+        Greet greet = new Greet();
+        greet.setTo(formParams.get("a").get(0));
+        greet.setMessage(formParams.get("b").get(0));
+        return Response.ok(greet).build();
+    }
+
+    /***
+     * REMAINING GOALS:
+     *
+     * - Submit form data - DONE
+     * - Request body in POST, PUT - DONE
+     * - Download file (single)
+     * - Upload files (multiple)
+     * - Request body with files
+     * - ...
+     */
+
+    @POST
+    @Path("/create")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createSimpleGreet(SimpleGreetJson simpleGreetJson,
+                                      @QueryParam("par1") List<String> par1,
+                                      @QueryParam("par2") List<String> par2,
+                                      @QueryParam("par3") List<String> par3) {
+        simpleGreetJson.setCode(Response.Status.CREATED.toString());
+        return Response.status(Response.Status.CREATED).entity(simpleGreetJson).build();
+    }
+
+    @PUT
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateSimpleGreet(SimpleGreetJson simpleGreetJson,
+                                      @QueryParam("par1") List<String> par1,
+                                      @QueryParam("par2") List<String> par2,
+                                      @QueryParam("par3") List<String> par3) {
+        simpleGreetJson.setCode(Response.Status.OK.toString());
+        return Response.status(Response.Status.OK).entity(simpleGreetJson).build();
+    }
 
 }
