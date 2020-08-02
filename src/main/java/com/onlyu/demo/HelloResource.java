@@ -227,4 +227,12 @@ public class HelloResource {
         return Response.status(Response.Status.OK).entity(simpleGreetJson).build();
     }
 
+    @GET
+    @Path("/exception")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createException() throws RuntimeException {
+        throw new RuntimeException("This is an intentional error!");
+        //return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("ERROR").build();
+    }
+
 }

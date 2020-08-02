@@ -23,4 +23,24 @@
         <url-pattern>/api/v1/*</url-pattern>
     </servlet-mapping>
 
+<!--    <filter>-->
+<!--        <filter-name>CORSFilter</filter-name>-->
+<!--        <filter-class>com.onlyu.demo.CORSFilter</filter-class>-->
+<!--    </filter>-->
+
+<!--    <filter-mapping>-->
+<!--        <filter-name>CORSFilter</filter-name>-->
+<!--        <url-pattern>/api/v1/*</url-pattern>-->
+<!--    </filter-mapping>-->
+
+    <filter>
+        <filter-name>CORSFilterServlet</filter-name>
+        <filter-class>com.onlyu.demo.CORSFilterServlet</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CORSFilterServlet</filter-name>
+        <url-pattern>/api/v1/*</url-pattern>
+    </filter-mapping>
+
 </web-app>
